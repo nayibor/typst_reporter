@@ -1,0 +1,29 @@
+<.header>
+  Report {@report.id}
+  <:subtitle>This is a report record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/reports/#{@report}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit report</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Title">{@report.title}</:item>
+  <:item title="Db query">{@report.db_query}</:item>
+  <:item title="Typst string">{@report.typst_string}</:item>
+  <:item title="Use default typst">{@report.use_default_typst}</:item>
+</.list>
+
+<.back navigate={~p"/reports"}>Back to reports</.back>
+
+<.modal :if={@live_action == :edit} id="report-modal" show on_cancel={JS.patch(~p"/reports/#{@report}")}>
+  <.live_component
+    module={TypstReporterWeb.ReportLive.FormComponent}
+    id={@report.id}
+    title={@page_title}
+    action={@live_action}
+    report={@report}
+    patch={~p"/reports/#{@report}"}
+  />
+</.modal>
