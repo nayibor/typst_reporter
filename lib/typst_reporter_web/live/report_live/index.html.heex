@@ -32,6 +32,13 @@
   </:action>
 </.table>
 
+<!-- this is for pagination -->
+<!--this is for a sample pagination page -->
+<div class="flex mx-auto items-center justify-center">
+  <.paginate url="/reports" page={@page_data.cpage} next_page_show={@page_data.next_page_show} />  
+</div>
+
+
 <.modal :if={@live_action in [:new, :edit]} id="report-modal" show on_cancel={JS.patch(~p"/reports")}>
   <.live_component
     module={TypstReporterWeb.ReportLive.FormComponent}

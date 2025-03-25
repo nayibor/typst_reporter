@@ -7,6 +7,7 @@ defmodule TypstReporter.TypstReport do
   alias TypstReporter.Repo
 
   alias TypstReporter.TypstReport.Report
+  alias TypstReporter.Utils
 
   @doc """
   Returns the list of reports.
@@ -17,8 +18,13 @@ defmodule TypstReporter.TypstReport do
       [%Report{}, ...]
 
   """
-  def list_reports do
-    Repo.all(Report)
+  def list_reports(params \\ %{title: "",limit: Utils.get_page_size(),offset: Utils.get_offset(1)}) do
+    IO.inspect(params)
+    limit = params.limit
+    offset = params.offset
+    title = params.title
+    search_string = "%#{title}%" 
+    Repo.all(from r in Report,limit: ^limit,offset: ^offset,order_by: [desc: :id],where:  ilike(field(r,:title), ^search_string))    
   end
 
   @doc """

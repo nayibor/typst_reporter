@@ -3,10 +3,15 @@ defmodule TypstReporterWeb.ReportLive.Index do
 
   alias TypstReporter.TypstReport
   alias TypstReporter.TypstReport.Report
+  alias TypstReporter.Utils
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :reports, TypstReport.list_reports())}
+    reports = TypstReport.list_reports()
+    {:ok,
+     socket
+     |> assign(:page_data,Utils.paginate(1,length(reports)))
+     |>  stream(:reports,reports)}
   end
 
   @impl true
@@ -35,14 +40,32 @@ defmodule TypstReporterWeb.ReportLive.Index do
 
   @impl true
   def handle_info({TypstReporterWeb.ReportLive.FormComponent, {:saved, report}}, socket) do
-    {:noreply, stream_insert(socket, :reports, report)}
+    reports = TypstReport.list_reports()
+    {:noreply,
+     socket
+     |> assign(:page_data,Utils.paginate(1,length(reports)))
+     |> stream(:reports, reports,reset: true)}
   end
 
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
     report = TypstReport.get_report!(id)
     {:ok, _} = TypstReport.delete_report(report)
+    reports = TypstReport.list_reports()
+    {:noreply,
+     socket
+     |> assign(:page_data,Utils.paginate(1,length(reports)))
+     |> stream(:reports, reports,reset: true)}
+  end
 
-    {:noreply, stream_delete(socket, :reports, report)}
+  ##this is for pagination
+  @impl true
+  def handle_event("paginate", %{"page" => page} = _params, socket) do
+    offset = Utils.get_offset(page)
+    reports = TypstReport.list_reports(%{offset: offset,limit: Utils.get_page_size(),title: ""})
+    {:noreply,
+     socket
+    |> assign(:page_data,Utils.paginate(page,length(reports)))     
+    |> stream(:reports,reports,reset: true)}
   end
 end
