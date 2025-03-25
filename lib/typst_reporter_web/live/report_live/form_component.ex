@@ -20,8 +20,8 @@ defmodule TypstReporterWeb.ReportLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:title]} type="text" label="Title" />
-        <.input field={@form[:db_query]} type="text" label="Db query" />
-        <.input field={@form[:typst_string]} type="text" label="Typst string" />
+        <.input field={@form[:db_query]} type="textarea" label="Db query" />
+        <.input field={@form[:typst_string]} type="textarea" label="Typst string" />
         <.input field={@form[:use_default_typst]} type="checkbox" label="Use default typst" />
         <:actions>
           <.button phx-disable-with="Saving...">Save Report</.button>

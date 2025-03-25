@@ -21,6 +21,7 @@ defmodule TypstReporterWeb.ReportLive.Index do
   end
 
   defp apply_action(socket, :new, _params) do
+    IO.inspect socket
     socket
     |> assign(:page_title, "New Report")
     |> assign(:report, %Report{})
