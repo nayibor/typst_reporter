@@ -675,10 +675,9 @@ defmodule TypstReporterWeb.CoreComponents do
   @doc """
   Renders a set of pagination links
   """
-  attr :url, :string, required: true
   attr :page, :integer, required: true
   attr :next_page_show, :boolean, required: true
-  def paginate(%{url: _url,page: page,next_page_show: next_page_show} = assigns) do
+  def paginate(%{page: page,next_page_show: next_page_show} = assigns) do
     case {page,next_page_show} do
       {1,true}  ## this is for the first page of a multi-page resultset 
 	->

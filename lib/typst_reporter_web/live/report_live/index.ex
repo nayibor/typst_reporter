@@ -62,7 +62,8 @@ defmodule TypstReporterWeb.ReportLive.Index do
   @impl true
   def handle_event("paginate", %{"page" => page} = _params, socket) do
     offset = Utils.get_offset(page)
-    reports = TypstReport.list_reports(%{offset: offset,limit: Utils.get_page_size(),title: ""})
+    title = if(Map.get(socket.assigns,:title), do: socket.assigns.title, else: "")
+    reports = TypstReport.list_reports(%{offset: offset,limit: Utils.get_page_size(),title: title})
     {:noreply,
      socket
     |> assign(:page_data,Utils.paginate(page,length(reports)))     
@@ -72,23 +73,25 @@ defmodule TypstReporterWeb.ReportLive.Index do
   ##this is for an empty search
   @impl true
   def handle_event("search", %{"title" => ""} =  _params, socket) do
+    IO.inspect socket
     reports = TypstReport.list_reports()
     {:noreply,
      socket
+     |> assign(:title,"")
      |> assign(:page_data,Utils.paginate(1,length(reports)))
      |> stream(:reports, reports,reset: true)}     
     
   end
 
   ##this is for a search with a real value
-  ##limit has been made big so whole search result can fit on page
-  ##pagination result returned will fit on one page no matter size of result
   def handle_event("search", %{"title" => title} = _params, socket) do
-    reports = TypstReport.list_reports(%{offset: 0,limit: 10000,title: title})
+    offset = Utils.get_offset(1)
+    reports = TypstReport.list_reports(%{offset: offset,limit: Utils.get_page_size(),title: title})
     {:noreply,
      socket
-    |> assign(:page_data,%{cpage: 1, next_page_show: false})
-    |> stream(:reports, reports,reset: true)}
+     |> assign(:title,title)
+     |> assign(:page_data,Utils.paginate(1,length(reports)))     
+     |> stream(:reports, reports,reset: true)}
   end
 
   
