@@ -25,7 +25,7 @@ defmodule TypstReporterWeb.Router do
 
     live "/reports/:id", ReportLive.Show, :show
     live "/reports/:id/show/edit", ReportLive.Show, :edit
-    
+    live "/reports/:id/preview", ReportLive.Index, :preview        
   end
 
 

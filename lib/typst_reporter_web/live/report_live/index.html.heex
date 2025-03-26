@@ -24,14 +24,17 @@
   row_click={fn {_id, report} -> JS.navigate(~p"/reports/#{report}") end}
 >
   <:col :let={{_id, report}} label="Title">{report.title}</:col>
-  <:col :let={{_id, report}} label="Db query">{report.db_query}</:col>
-  <:col :let={{_id, report}} label="Typst string">{report.typst_string}</:col>
+  <:col :let={{_id, report}} label="Db query">***</:col>
+  <:col :let={{_id, report}} label="Typst string">***</:col>
   <:col :let={{_id, report}} label="Use default typst">{report.use_default_typst}</:col>
   <:action :let={{_id, report}}>
     <div class="sr-only">
       <.link navigate={~p"/reports/#{report}"}>Show</.link>
     </div>
     <.link patch={~p"/reports/#{report}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{_id, report}}>
+    <.link patch={~p"/reports/#{report}/preview"}>Preview</.link>   
   </:action>
   <:action :let={{id, report}}>
     <.link
@@ -48,6 +51,16 @@
 <div class="flex mx-auto items-center justify-center mt-5">
   <.paginate page={@page_data.cpage} next_page_show={@page_data.next_page_show} />  
 </div>
+
+<!-- this is for the preview modal -->
+<.modal :if={@live_action in [:preview]}  id="preview-modal" show on_cancel={JS.patch(~p"/reports")}>
+  <div class="justify-center items-center">
+    <.header>
+      {@report.title}
+      <:subtitle></:subtitle>
+    </.header>
+  </div>
+</.modal>
 
 
 <.modal :if={@live_action in [:new, :edit]} id="report-modal" show on_cancel={JS.patch(~p"/reports")}>

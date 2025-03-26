@@ -9,6 +9,24 @@ defmodule TypstReporter.TypstReport do
   alias TypstReporter.TypstReport.Report
   alias TypstReporter.Utils
 
+
+  @doc """
+  Runs the query for a report.
+
+  ## Examples
+
+      iex> list_reports()
+      [%Report{}, ...]
+
+  """
+  def run_report(query,params) do
+    case Repo.query(query,params)do
+      {:ok,result} -> {:ok,%{columns: result.columns,rows: result.rows}}
+      {:error,_} = error -> error
+    end
+    
+  end
+  
   @doc """
   Returns the list of reports.
 

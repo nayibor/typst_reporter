@@ -38,6 +38,16 @@ defmodule TypstReporterWeb.ReportLive.Index do
     |> assign(:report, nil)
   end
 
+  defp apply_action(socket, :preview, %{"id" => id}) do
+    report = TypstReport.get_report!(id)
+    result_query = TypstReport.run_report(report.db_query,[])  
+    socket
+    |> assign(report: report)
+    |> assign(result_query: result_query)
+    |> IO.inspect()
+    |> assign(:page_title, "Preview Report")
+  end
+  
   @impl true
   def handle_info({TypstReporterWeb.ReportLive.FormComponent, {:saved, _report}}, socket) do
     reports = TypstReport.list_reports()
