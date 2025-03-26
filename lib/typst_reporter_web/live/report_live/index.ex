@@ -26,7 +26,6 @@ defmodule TypstReporterWeb.ReportLive.Index do
   end
 
   defp apply_action(socket, :new, _params) do
-    IO.inspect socket
     socket
     |> assign(:page_title, "New Report")
     |> assign(:report, %Report{})
@@ -35,11 +34,12 @@ defmodule TypstReporterWeb.ReportLive.Index do
   defp apply_action(socket, :index, _params) do
     socket
     |> assign(:page_title, "Listing Reports")
+    |> assign(:form, %{})
     |> assign(:report, nil)
   end
 
   @impl true
-  def handle_info({TypstReporterWeb.ReportLive.FormComponent, {:saved, report}}, socket) do
+  def handle_info({TypstReporterWeb.ReportLive.FormComponent, {:saved, _report}}, socket) do
     reports = TypstReport.list_reports()
     {:noreply,
      socket
@@ -68,4 +68,28 @@ defmodule TypstReporterWeb.ReportLive.Index do
     |> assign(:page_data,Utils.paginate(page,length(reports)))     
     |> stream(:reports,reports,reset: true)}
   end
+
+  ##this is for an empty search
+  @impl true
+  def handle_event("search", %{"title" => ""} =  _params, socket) do
+    reports = TypstReport.list_reports()
+    {:noreply,
+     socket
+     |> assign(:page_data,Utils.paginate(1,length(reports)))
+     |> stream(:reports, reports,reset: true)}     
+    
+  end
+
+  ##this is for a search with a real value
+  ##limit has been made big so whole search result can fit on page
+  ##pagination result returned will fit on one page no matter size of result
+  def handle_event("search", %{"title" => title} = _params, socket) do
+    reports = TypstReport.list_reports(%{offset: 0,limit: 10000,title: title})
+    {:noreply,
+     socket
+    |> assign(:page_data,%{cpage: 1, next_page_show: false})
+    |> stream(:reports, reports,reset: true)}
+  end
+
+  
 end

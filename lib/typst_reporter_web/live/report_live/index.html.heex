@@ -7,6 +7,17 @@
   </:actions>
 </.header>
 
+<.simple_form
+  for={@form}
+  id="search-form"
+  phx-submit="search"
+  >
+  <div class="sm:w-full md:w-1/2">
+    <.input  name="title" id="title" value="" type="text" label="" placeholder="Search" />
+  </div>
+</.simple_form>
+
+
 <.table
   id="reports"
   rows={@streams.reports}
