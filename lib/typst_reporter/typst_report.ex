@@ -21,8 +21,8 @@ defmodule TypstReporter.TypstReport do
   """
   def run_report(query,params) do
     case Repo.query(query,params)do
-      {:ok,result} -> {:ok,%{columns: result.columns,rows: result.rows}}
-      {:error,_} = error -> error
+      {:ok,result} -> {"ok",%{columns: result.columns,rows: result.rows}}
+      {:error,message} -> {"error",message}
     end
     
   end
