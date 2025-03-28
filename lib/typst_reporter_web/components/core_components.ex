@@ -714,5 +714,39 @@ defmodule TypstReporterWeb.CoreComponents do
     end
   end
 
-  
+  @doc """
+  Renders a custom table 
+  """
+  attr :rows, :list, required: true
+  attr :col, :list, required: true
+  attr :id, :string, required: true
+  def table_custom( assigns) do
+    ~H"""
+    <div class="overflow-y-auto px-4 overflow-visible sm:px-0">
+      <table class="w-[40rem] mt-11 sm:w-full">
+        <thead class="text-sm text-left leading-6 text-zinc-500">
+          <tr>
+            <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal"><%= col %></th>
+            <th>
+              <span class="sr-only"></span>
+            </th>
+          </tr>
+        </thead>
+        <tbody id={@id} class="relative divide-y divide-zinc-100 border-t border-zinc-200 text-sm leading-6 text-zinc-700">
+          <tr :for={row <- @rows}  class="group hover:bg-zinc-50">
+            <td :for={{col, i} <- Enum.with_index(@col)} class="relative p-0 hover:cursor-pointer">
+              <div class="block py-4 pr-6">
+                <span class="absolute -inset-y-px right-0 -left-4 group-hover:bg-zinc-50 sm:rounded-l-xl" />
+                <span class={["relative", i == 0 && "font-semibold text-zinc-900"]}>
+                  <%= Enum.at(row,i) %>
+                </span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    """
+  end
+
 end

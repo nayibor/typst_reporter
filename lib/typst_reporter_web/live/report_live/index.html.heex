@@ -59,6 +59,11 @@
       {@report.title}
       <:subtitle></:subtitle>
     </.header>
+    <%= if @type_preview == "ok" do %>
+    <.table_custom id="preview_table" rows={@result_query.rows} col={@result_query.columns} />
+    <% else  %>
+    error running query.please check query.
+    <% end %>
   </div>
 </.modal>
 
