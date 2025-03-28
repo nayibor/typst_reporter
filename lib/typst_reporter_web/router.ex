@@ -18,7 +18,8 @@ defmodule TypstReporterWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
-
+    get "/reports/process_reports/:id/", PageController, :process_report
+    
     live "/reports", ReportLive.Index, :index
     live "/reports/new", ReportLive.Index, :new
     live "/reports/:id/edit", ReportLive.Index, :edit
