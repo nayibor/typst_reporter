@@ -86,7 +86,6 @@ defmodule TypstReporterWeb.ReportLive.Index do
   ##this is for an empty search
   @impl true
   def handle_event("search", %{"title" => ""} =  _params, socket) do
-    IO.inspect socket
     reports = TypstReport.list_reports()
     {:noreply,
      socket
