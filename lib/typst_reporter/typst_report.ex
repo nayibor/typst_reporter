@@ -37,7 +37,6 @@ defmodule TypstReporter.TypstReport do
 
   """
   def list_reports(params \\ %{title: "",limit: Utils.get_page_size(),offset: Utils.get_offset(1)}) do
-    IO.inspect(params)
     limit = params.limit
     offset = params.offset
     title = params.title

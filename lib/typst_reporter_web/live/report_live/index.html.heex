@@ -24,8 +24,8 @@
   row_click={fn {_id, report} -> JS.navigate(~p"/reports/#{report}") end}
 >
   <:col :let={{_id, report}} label="Title">{report.title}</:col>
-  <:col :let={{_id, report}} label="Db query">***</:col>
-  <:col :let={{_id, report}} label="Typst string">***</:col>
+  <:col :let={{_id, _report}} label="Db query">***</:col>
+  <:col :let={{_id, _report}} label="Typst string">***</:col>
   <:col :let={{_id, report}} label="Use default typst">{report.use_default_typst}</:col>
   <:action :let={{_id, report}}>
     <div class="sr-only">
@@ -36,6 +36,9 @@
   <:action :let={{_id, report}}>
     <.link patch={~p"/reports/#{report}/preview"}>Preview</.link>   
   </:action>
+  <:action :let={{_id, report}}>
+    <.link href={~p"/reports/process_reports/#{report}"}>Download</.link>   
+  </:action>  
   <:action :let={{id, report}}>
     <.link
       phx-click={JS.push("delete", value: %{id: report.id}) |> hide("##{id}")}
