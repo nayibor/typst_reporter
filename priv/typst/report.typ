@@ -8,11 +8,11 @@
 
   //for setting a bold header and also showing strokes for specific rows
   #show table.cell.where(y: 0): set text(style: "normal", weight: "bold")
-  #set table(stroke: (_, y) => if y > 0 { (top: 0.8pt) })
+  #set table(stroke: (_, y) => if y > 0 { (top: 0.8pt + rgb(229, 231, 235)) })
   
   #table(
   columns: { cols.map(col => 1fr) },
-  align: center + horizon,
+  align: left,
   table.header(..{ cols.map(col => [#col]) },),
   ..rows.map(row => row.map(single => [#single]) ).flatten()
   ),
