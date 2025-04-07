@@ -734,7 +734,7 @@ defmodule TypstReporterWeb.CoreComponents do
         </thead>
         <tbody id={@id} class="relative divide-y divide-zinc-100 border-t border-zinc-200 text-sm leading-6 text-zinc-700">
           <tr :for={row <- @rows}  class="group hover:bg-zinc-50">
-            <td :for={{col, i} <- Enum.with_index(@col)} class="relative p-0 hover:cursor-pointer">
+            <td :for={{_col, i} <- Enum.with_index(@col)} class="relative p-0 hover:cursor-pointer">
               <div class="block py-4 pr-6">
                 <span class="absolute -inset-y-px right-0 -left-4 group-hover:bg-zinc-50 sm:rounded-l-xl" />
                 <span class={["relative", i == 0 && "font-semibold text-zinc-900"]}>

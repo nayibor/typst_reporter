@@ -23,11 +23,11 @@ defmodule TypstReporterWeb.PageController do
 	path_typst = Path.join([:code.priv_dir(:typst_reporter),"/typst/typst"] )    
 	path_api = Path.join([:code.priv_dir(:typst_reporter),"/typst/main.typ"] )
 	path_template = "report.typ"
-	command = "#{path_typst} compile  --input 'title=#{title}' --input 'rowData=#{rows_data}' --input 'colData=#{columns_data}' --input 'templatePath=#{path_template}' -f pdf #{path_api} -"
+	_command = "#{path_typst} compile  --input 'title=#{title}' --input 'rowData=#{rows_data}' --input 'colData=#{columns_data}' --input 'templatePath=#{path_template}' -f pdf #{path_api} -"
       false ->
 	typst_string = report.typst_string
 	path_typst = Path.join([:code.priv_dir(:typst_reporter),"/typst/typst"] )    
-	command = "echo '#{typst_string}' | #{path_typst} compile  --input 'title=#{title}' --input 'rowData=#{rows_data}' --input 'colData=#{columns_data}' -f pdf - -"
+	_command = "echo '#{typst_string}' | #{path_typst} compile  --input 'title=#{title}' --input 'rowData=#{rows_data}' --input 'colData=#{columns_data}' -f pdf - -"
     end
     {result,code_result} = System.cmd("sh",["-c",command])
     case code_result do
