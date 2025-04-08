@@ -42,8 +42,6 @@ defmodule TypstReporterWeb.ReportLive.Index do
     report = TypstReport.get_report!(id)
     result_query = TypstReport.run_report(report.db_query,[])
     {type_preview,result_query} = result_query
-    ##IO.inspect type_preview
-    ##IO.inspect result_query
     socket
     |> assign(report: report)
     |> assign(type_preview: type_preview)

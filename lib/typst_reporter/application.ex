@@ -8,16 +8,16 @@ defmodule TypstReporter.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      TypstReporterWeb.Telemetry,
-      TypstReporter.Repo,
-      {DNSCluster, query: Application.get_env(:typst_reporter, :dns_cluster_query) || :ignore},
-      {Phoenix.PubSub, name: TypstReporter.PubSub},
-      # Start the Finch HTTP client for sending emails
-      {Finch, name: TypstReporter.Finch},
-      # Start a worker by calling: TypstReporter.Worker.start_link(arg)
-      # {TypstReporter.Worker, arg},
-      # Start to serve requests, typically the last entry
-      TypstReporterWeb.Endpoint
+      # TypstReporterWeb.Telemetry,
+      # TypstReporter.Repo,
+      # {DNSCluster, query: Application.get_env(:typst_reporter, :dns_cluster_query) || :ignore},
+      # {Phoenix.PubSub, name: TypstReporter.PubSub},
+      # # Start the Finch HTTP client for sending emails
+      # {Finch, name: TypstReporter.Finch},
+      # # Start a worker by calling: TypstReporter.Worker.start_link(arg)
+      # # {TypstReporter.Worker, arg},
+      # # Start to serve requests, typically the last entry
+       TypstReporterWeb.Endpoint
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

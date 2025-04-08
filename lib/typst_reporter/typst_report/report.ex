@@ -2,7 +2,7 @@ defmodule TypstReporter.TypstReport.Report do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "reports" do
+  schema "typst_reports" do
     field :title, :string
     field :db_query, :string
     field :typst_string, :string
@@ -15,6 +15,6 @@ defmodule TypstReporter.TypstReport.Report do
   def changeset(report, attrs) do
     report
     |> cast(attrs, [:title, :db_query, :typst_string, :use_default_typst])
-    |> validate_required([:title, :db_query, :typst_string, :use_default_typst])
+    |> validate_required([:title, :db_query, :use_default_typst])
   end
 end

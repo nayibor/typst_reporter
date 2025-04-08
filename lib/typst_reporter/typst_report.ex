@@ -2,13 +2,13 @@ defmodule TypstReporter.TypstReport do
   @moduledoc """
   The TypstReport context.
   """
-
   import Ecto.Query, warn: false
-  alias TypstReporter.Repo
-
   alias TypstReporter.TypstReport.Report
   alias TypstReporter.Utils
-
+  ##this macro line below is used for dynamically importing the repo to be used
+  ##the repo is specified as an env variable which is imported
+  ##this is so external repos can be used for the application
+  use TypstReporter.RepoSetup
 
   @doc """
   Runs the query for a report.

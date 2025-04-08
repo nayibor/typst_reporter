@@ -2,7 +2,7 @@ defmodule TypstReporter.Repo.Migrations.CreateReports do
   use Ecto.Migration
 
   def change do
-    create table(:reports) do
+    create table(:typst_reports) do
       add :title, :string
       add :db_query, :text
       add :typst_string, :text
