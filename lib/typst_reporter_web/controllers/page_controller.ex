@@ -31,7 +31,7 @@ defmodule TypstReporterWeb.PageController do
     end
     {result,code_result} = System.cmd("sh",["-c",command])
     case code_result do
-      0 -> send_download(conn,{:binary,result},content_type: "application/pdf",disposition: :inline,filename: filename )
+      0 -> send_download(conn,{:binary,result},content_type: "application/pdf",disposition: :attachment,filename: filename )
       _ -> text(conn,"error generating pdf")
     end
 
