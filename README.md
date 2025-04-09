@@ -1,6 +1,6 @@
 # TypstReporter
 
-This is a elixir application that enables you to write sql queries and uses [typst](https://typst.app/)  to create reports using the results of the queries.
+This is a elixir application that enables you to write sql queries and uses [typst](https://typst.app/)  to create default reports automatically.
 
 You can write your own custom typst scripts for each report and the title,rows and columns will be available to your scripts as inputs in the format below
 
@@ -16,9 +16,9 @@ You can write your own custom typst scripts for each report and the title,rows a
 
 ## Warning
 
-It is highly recommended that you create a seperate user with resticted privileges for running reports and also create a repo for that user.
+It is highly recommended that you create a seperate user with restricted privileges for running reports and also create a repo for that user.
 
-You then supply that repo as a environmental variable in your config file for the **typst_reporter** application.
+You then supply that repo in your config file for the **typst_reporter** application.
 
 This is to prevent abuse of the reporting interface for malicious purposes.
 
