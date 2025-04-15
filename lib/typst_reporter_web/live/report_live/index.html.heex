@@ -58,9 +58,8 @@
 <!-- this is for the preview modal -->
 <.modal :if={@live_action in [:preview]}  id="preview-modal" show on_cancel={JS.patch(~p"/reports")}>
   <div class="justify-center items-center">
-    <.header>
+    <.header class="flex justify-center items-center">
       {@report.title}
-      <:subtitle></:subtitle>
     </.header>
     <%= if @type_preview == "ok" do %>
     <.table_custom id="preview_table" rows={@result_query.rows} col={@result_query.columns} />
