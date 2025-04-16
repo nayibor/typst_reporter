@@ -2,6 +2,8 @@
 
 This is a elixir application that enables you to write sql queries and uses [typst](https://typst.app/)  to create default reports automatically.
 
+Its designed  to enable you to add  reporting functionality to a phoenix web application.
+
 You can write your own custom typst scripts for each report and the title,rows and columns will be available to your scripts as inputs in the format below
 
 ```
